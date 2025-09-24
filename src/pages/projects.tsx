@@ -1,84 +1,116 @@
 import Link from "next/link";
 import React from "react";
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { useAppSelector } from "@/store/hooks";
 import { RootState } from "@/store";
-import { addProject } from "@/store/slices/projectsSlice";
+import { motion } from "framer-motion";
 
 export default function ProjectsPage() {
-  const dispatch = useAppDispatch();
   const caseStudies = useAppSelector((s: RootState) => s.caseStudies.items);
   const projects = useAppSelector((s: RootState) => s.projects.items);
 
-  function seedProject() {
-    const id = `proj-${Date.now()}`;
-    dispatch(
-      addProject({
-        id,
-        title: "Sample Portfolio Project — Image Search",
-        description:
-          "Client-side image search demo built with Next.js, TypeScript and Tailwind. Demonstrates API wiring and state management.",
-        link: "",
-        createdAt: new Date().toISOString(),
-      })
-    );
-  }
+  // Animation variants
+  const cardVariant = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+  };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-4">Projects & Case Studies</h1>
+    <div className="bg-gradient-to-b from-gray-50 via-gray-100 to-gray-50 min-h-screen">
+      <main className="container mx-auto px-6 py-16">
+        {/* Page Title */}
+        <h1 className="text-5xl md:text-6xl font-extrabold text-center text-gray-800 mb-20 tracking-tight">
+          Projects & Case Studies
+        </h1>
 
-      <section className="mb-8">
-        <h2 className="text-xl font-semibold mb-3">Featured Case Studies</h2>
-        {caseStudies.length === 0 ? (
-          <div className="p-6 bg-white rounded shadow">No case studies yet.</div>
-        ) : (
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {caseStudies.map((cs) => (
-              <Link key={cs.id} href={`/projects/${cs.slug}`} className="block bg-white rounded-xl shadow p-5 border hover:shadow-lg transition">
-                  <h3 className="text-lg font-semibold">{cs.title}</h3>
-                  <p className="text-sm text-gray-600 mt-2 line-clamp-3">{cs.tagline || cs.summary}</p>
-                  <div className="text-xs text-gray-500 mt-3">
-                    <span>{cs.role}</span> • <span>{new Date(cs.createdAt).toLocaleDateString()}</span>
+        {/* Featured Case Studies */}
+        <section id="case-studies" className="mb-24 relative">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-12 border-b-4 border-gradient-to-r from-blue-400 to-purple-500 pb-2">
+            Featured Case Studies
+          </h2>
+
+          {caseStudies.length === 0 ? (
+            <div className="p-12 bg-white rounded-3xl shadow-xl text-center text-gray-500 text-lg">
+              No case studies yet.
+            </div>
+          ) : (
+            <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-3">
+              {caseStudies.map((cs) => (
+                <motion.div
+                  key={cs.id}
+                  variants={cardVariant}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, amount: 0.2 }}
+                >
+                  <Link
+                    href={`/projects/${cs.slug}`}
+                    className="bg-white rounded-3xl shadow-xl p-8 border hover:shadow-2xl hover:-translate-y-1 transition-transform duration-300 flex flex-col justify-between"
+                  >
+                    <div>
+                      <h3 className="text-2xl font-semibold text-gray-800 mb-3">{cs.title}</h3>
+                      <p className="text-gray-600 text-sm mb-5 line-clamp-3">
+                        {cs.tagline || cs.summary}
+                      </p>
+                    </div>
+                    <div className="text-xs text-gray-500 mt-auto flex justify-between">
+                      <span className="italic">{cs.role}</span>
+                      <span>{new Date(cs.createdAt).toLocaleDateString()}</span>
+                    </div>
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+          )}
+        </section>
+
+        {/* Decorative Divider */}
+        <div className="w-full h-1 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 my-16 rounded-full"></div>
+
+        {/* Other Projects */}
+        <section id="projects">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-12 border-b-4 border-gradient-to-r from-green-400 to-teal-500 pb-2">
+            Other Projects
+          </h2>
+
+          {projects.length === 0 ? (
+            <div className="p-12 bg-white rounded-3xl shadow-xl text-center text-gray-500 text-lg">
+              No projects yet.
+            </div>
+          ) : (
+            <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-3">
+              {projects.map((p) => (
+                <motion.div
+                  key={p.id}
+                  variants={cardVariant}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, amount: 0.2 }}
+                >
+                  <div className="bg-white rounded-3xl shadow-xl p-8 border hover:shadow-2xl hover:-translate-y-1 transition-transform duration-300 flex flex-col justify-between">
+                    <div>
+                      <h3 className="text-2xl font-semibold text-gray-800 mb-3">{p.title}</h3>
+                      <p className="text-gray-600 text-sm mb-5 line-clamp-3">{p.description}</p>
+                    </div>
+                    <div className="mt-auto flex justify-between items-center text-xs text-gray-500">
+                      <span>{new Date(p.createdAt).toLocaleDateString()}</span>
+                      {p.link && (
+                        <a
+                          href={p.link}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="text-blue-600 text-sm font-medium hover:underline"
+                        >
+                          Live demo
+                        </a>
+                      )}
+                    </div>
                   </div>
-
-              </Link>
-            ))}
-          </div>
-        )}
-      </section>
-
-      <section>
-        <div className="flex items-center justify-between mb-3">
-          <h2 className="text-xl font-semibold">Other Projects</h2>
-          <button
-            onClick={seedProject}
-            className="text-sm px-3 py-1 rounded bg-blue-600 text-white"
-          >
-            Seed Sample Project
-          </button>
-        </div>
-
-        {projects.length === 0 ? (
-          <div className="p-6 bg-white rounded shadow">No projects yet. Click “Seed Sample Project”.</div>
-        ) : (
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {projects.map((p) => (
-              <div key={p.id} className="bg-white rounded-xl shadow p-5 border">
-                <h3 className="text-lg font-semibold">{p.title}</h3>
-                <p className="text-sm text-gray-600 mt-2 line-clamp-3">{p.description}</p>
-                <div className="mt-3 text-xs text-gray-500">{new Date(p.createdAt).toLocaleDateString()}</div>
-                {p.link && (
-                  <div className="mt-2">
-                    <a href={p.link} target="_blank" rel="noreferrer" className="text-blue-600 text-sm">
-                      Live demo
-                    </a>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        )}
-      </section>
+                </motion.div>
+              ))}
+            </div>
+          )}
+        </section>
+      </main>
     </div>
   );
 }

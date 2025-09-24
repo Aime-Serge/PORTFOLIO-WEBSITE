@@ -4,4 +4,5 @@ export interface Research {
   abstract: string;
   pdfUrl?: string;
   createdAt: string;
+  tags?: string[];
 }

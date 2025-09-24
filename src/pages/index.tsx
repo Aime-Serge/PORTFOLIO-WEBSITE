@@ -1,106 +1,189 @@
-import MainLayout from '@/components/layout/MainLayout';
-import Link from 'next/link';
+"use client";
+
+import React from "react";
+import Link from "next/link";
 
 export default function HomePage() {
   return (
-    <MainLayout>
+    <div className="space-y-24">
       {/* Hero Section */}
-      <section className="mb-10 text-center">
-        <h1 className="text-4xl font-bold text-gray-900 mb-2">
-          Aime Serge UKOBIZABA
-        </h1>
-        <p className="text-gray-700 text-lg font-medium">
-          CS Undergraduate Candidate • Software Developer • Educator • Storyteller
-        </p>
-        <p className="text-sm text-gray-500">
-          Applying to U.S. Ivy League universities for Computer Science · Rwanda · ALX Fellow · TAP II TA
-        </p>
-      </section>
-
-      {/* About Me / Personal Brand Pitch */}
-      <section className="mb-10">
-        <h2 className="text-xl font-semibold text-gray-800 mb-2">🙋‍♂️ About Me</h2>
-        <p className="text-sm text-gray-700 leading-relaxed">
-          I’m a purpose-driven Rwandan learner, educator, and developer aspiring to pursue an undergraduate degree in
-          Computer Science at a top U.S. university. My portfolio reflects not just what I’ve built, but how I think:
-          technically, ethically, and impactfully.
-        </p>
-        <p className="text-sm text-gray-700 leading-relaxed mt-2">
-          My journey bridges self-learning, peer tutoring, technical exploration, and community contribution. I’ve led workshops,
-          built dynamic web systems, published case studies, and mentored fellow TAs — all with the mindset of #DoHardThings.
-        </p>
-      </section>
-
-      {/* Video Introduction */}
-      <section className="mb-10">
-        <h2 className="text-xl font-semibold text-gray-800 mb-2">🎥 Portfolio Demo Video</h2>
-        <div className="aspect-w-16 aspect-h-9">
-          <iframe
-            className="rounded w-full"
-            src="https://www.youtube.com/embed/cFeNw9i7swE"
-            title="Portfolio Overview Video"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          />
+      <section className="relative bg-gradient-to-b from-blue-50 via-white to-white py-20">
+        <div className="container mx-auto px-6 text-center">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-gray-900 mb-6">
+            Hi, I’m <span className="text-blue-600">Aime Serge UKOBIZABA</span>
+          </h1>
+          <p className="max-w-2xl mx-auto text-lg sm:text-xl text-gray-600 leading-relaxed mb-10">
+            A passionate software engineer committed to leveraging{" "}
+            <span className="font-medium text-gray-800">technology and innovation</span>{" "}
+            to tackle global challenges like <strong>climate change </strong>, while building scalable 
+            solutions in <strong>EduTech</strong>, <strong>HealthTech</strong>, <strong>AgriTech</strong>, <strong>Cyber-Security Prottypes</strong>. I do build and explore <span className="font-medium text-gray-800">Web, PWA, Apps and Mobile  Development</span>,{" "}
+            <span className="font-medium text-gray-800">Research</span>, and{" "}
+            <span className="font-medium text-gray-800">AI-driven projects and IT Security Explores</span>.
+          </p>
+          <div className="flex flex-wrap justify-center gap-4">
+            <Link
+              href="/projects"
+              className="px-6 py-3 rounded-xl bg-blue-600 text-white font-medium shadow-lg hover:shadow-xl hover:bg-blue-700 transition"
+            >
+              Latest Projects
+            </Link>
+            <Link
+              href="/contact"
+              className="px-6 py-3 rounded-xl bg-green-300 text-gray-800 font-medium hover:bg-gray-200 shadow transition"
+            >
+              Contact Me
+            </Link>
+            <Link
+              href="/resume"
+              className="px-6 py-3 rounded-xl bg-gray-200 text-gray-800 font-medium hover:bg-gray-200 shadow transition"
+            >
+            Resume/CV
+            </Link>
+          </div>
         </div>
       </section>
 
-      {/* Academic Journey */}
-      <section className="mb-10">
-        <h2 className="text-xl font-semibold text-gray-800 mb-2">🎓 Academic & Leadership Profile</h2>
-        <ul className="text-sm text-gray-700 list-disc ml-5 space-y-1">
-          <li>IEE Rwanda TAP II Teaching Assistant · Facilitated CPD tech sessions</li>
-          <li>ALX ProDev Software Engineering Fellow · Frontend + AI programs</li>
-          <li>Certified in Leadership through John Maxwell’s Beyond Success</li>
-          <li>Trained in professional collaboration, agile workflows, tech mentorship</li>
-        </ul>
+      {/* About Section */}
+      <section className="container mx-auto px-6">
+        <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="relative">
+            <div className="w-full h-64 bg-gradient-to-tr from-blue-200 to-blue-400 rounded-2xl shadow-lg" />
+            <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-blue-600/20 rounded-full blur-2xl" />
+          </div>
+          <div>
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">About Me</h2>
+            <p className="text-gray-600 leading-relaxed mb-4">
+              I’m a computer scientist with strong academic resilience and 
+              hands-on experience in software engineering. My journey reflects 
+              persistence and growth: overcoming challenges to excel in STEM 
+              studies, lead innovative projects, and contribute to my community.
+            </p>
+            <p className="text-gray-600 leading-relaxed">
+              I’m especially passionate about applying computer science to{" "}
+              <span className="font-medium text-gray-800">climate change solutions</span> 
+              and real-world impact — aligning innovation with purpose.
+            </p>
+          </div>
+        </div>
       </section>
 
-      {/* Projects Section */}
-      <section className="mb-10">
-        <h2 className="text-xl font-semibold text-gray-800 mb-2">🛠️ Projects & Case Studies</h2>
-        <ul className="text-sm text-gray-700 list-disc ml-5 space-y-1">
-          <li><strong>Online Store Platform</strong> – Admin dashboard + mock API + frontend integration</li>
-          <li><strong>MK Scholars</strong> – Education org portal with blogs + case study</li>
-          <li><strong>Winning4Tours & IgloTours</strong> – Tourism website redesigns</li>
-          <li><strong>ALX GraphQL + PWA</strong> – Modern web stack project modules</li>
-        </ul>
-        <Link href="/projects" className="text-blue-600 underline text-sm mt-2 block">
-          View full project archive →
-        </Link>
+      {/* Featured Projects */}
+      <section className="bg-gray-50 py-16">
+        <div className="container mx-auto px-6 text-center">
+          <h2 className="text-3xl font-bold text-gray-900 mb-12">
+            Featured Projects
+          </h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="bg-white p-6 rounded-2xl shadow hover:shadow-lg transition text-left">
+              <h3 className="text-lg font-semibold text-blue-600 mb-2">SoloForge</h3>
+              <p className="text-gray-600 text-sm mb-3">
+                Built a modern web application with Next.js, TypeScript, and Tailwind 
+                to master autonomous project development workflows.
+              </p>
+              <Link href="/projects" className="text-blue-600 text-sm font-medium hover:underline">
+                Learn more →
+              </Link>
+            </div>
+
+            <div className="bg-white p-6 rounded-2xl shadow hover:shadow-lg transition text-left">
+              <h3 className="text-lg font-semibold text-blue-600 mb-2">Reactify TS</h3>
+              <p className="text-gray-600 text-sm mb-3">
+                Advanced React project exploring TypeScript, custom layouts, error 
+                handling, and 404 pages for professional web apps.
+              </p>
+              <Link href="/projects" className="text-blue-600 text-sm font-medium hover:underline">
+                Learn more →
+              </Link>
+            </div>
+
+            <div className="bg-white p-6 rounded-2xl shadow hover:shadow-lg transition text-left">
+              <h3 className="text-lg font-semibold text-blue-600 mb-2">StateCraft</h3>
+              <p className="text-gray-600 text-sm mb-3">
+                Implemented state management using useState, Context API, and Redux 
+                to design scalable React applications.
+              </p>
+              <Link href="/projects" className="text-blue-600 text-sm font-medium hover:underline">
+                Learn more →
+              </Link>
+            </div>
+          </div>
+        </div>
       </section>
 
-      {/* Research & Publications */}
-      <section className="mb-10">
-        <h2 className="text-xl font-semibold text-gray-800 mb-2">📚 Research & Publications</h2>
-        <p className="text-sm text-gray-700 mb-2">
-          This portfolio includes publications, PDFs, and case studies written, documented, and designed by me.
+      {/* Skills Section */}
+      <section className="container mx-auto px-6 text-center">
+        <h2 className="text-3xl font-bold text-gray-900 mb-8">Technical Skills</h2>
+        <p className="max-w-2xl mx-auto text-gray-600 mb-10">
+          A snapshot of the tools and technologies I work with to build scalable, 
+          modern applications and contribute to impactful research.
         </p>
-        <ul className="text-sm text-gray-700 list-disc ml-5 space-y-1">
-          <li>Beyond Success: Leadership journey & impact case study</li>
-          <li>IEE Rwanda: TA-led CPD effectiveness & training narrative</li>
-          <li>ALX Projects: Reflective documentation of GraphQL & PWA builds</li>
-        </ul>
-        <Link href="/research" className="text-blue-600 underline text-sm mt-2 block">
-          Browse research →
-        </Link>
+        <div className="flex flex-wrap justify-center gap-3">
+          {[
+            "Next.js",
+            "React",
+            "TypeScript",
+            "Tailwind CSS",
+            "Redux",
+            "Node.js",
+            "Python",
+            "Data Analysis",
+            "AI & Machine Learning",
+            "Git/GitHub",
+            "REST APIs",
+            "Problem Solving",
+          ].map((skill) => (
+            <span
+              key={skill}
+              className="px-4 py-2 bg-blue-50 text-blue-700 rounded-full text-sm font-medium shadow hover:bg-blue-100 transition"
+            >
+              {skill}
+            </span>
+          ))}
+        </div>
       </section>
 
-      {/* Navigation Shortcuts */}
-      <section className="mb-10">
-        <h2 className="text-xl font-semibold text-gray-800 mb-2">🔗 Explore Portfolio</h2>
-        <ul className="list-disc ml-5 text-blue-600 text-sm space-y-1">
-          <li><Link href="/resume" className="underline">Resume & Skills Overview</Link></li>
-          <li><Link href="/projects" className="underline">Full Project Listing</Link></li>
-          <li><Link href="/blogs" className="underline">Technical Blogs</Link></li>
-          <li><Link href="/research" className="underline">Research Publications</Link></li>
-          <li><Link href="/contact" className="underline">Get in Touch</Link></li>
-        </ul>
+      {/* Quick Navigation CTA */}
+      <section className="bg-gradient-to-r from-blue-600 to-purple-600 py-16 text-white">
+        <div className="container mx-auto px-6 text-center">
+          <h2 className="text-3xl font-bold mb-6">Explore My Portfolio</h2>
+          <p className="max-w-2xl mx-auto mb-10 text-blue-100">
+            Quick access to key sections of my work — designed for admissions 
+            teams, collaborators, and mentors.
+          </p>
+          <div className="flex flex-wrap justify-center gap-4">
+            <Link
+              href="/resume"
+              className="px-6 py-3 bg-white text-blue-700 rounded-xl font-medium shadow hover:bg-gray-100 transition"
+            >
+              Resume & Skills
+            </Link>
+            <Link
+              href="/projects"
+              className="px-6 py-3 bg-white text-blue-700 rounded-xl font-medium shadow hover:bg-gray-100 transition"
+            >
+              Projects
+            </Link>
+            <Link
+              href="/research"
+              className="px-6 py-3 bg-white text-blue-700 rounded-xl font-medium shadow hover:bg-gray-100 transition"
+            >
+              Research
+            </Link>
+            <Link
+              href="/research"
+              className="px-6 py-3 bg-white text-blue-700 rounded-xl font-medium shadow hover:bg-gray-100 transition"
+            >
+              Blogs
+            </Link>
+            <Link
+              href="/contact"
+              className="px-6 py-3 bg-white text-blue-700 rounded-xl font-medium shadow hover:bg-gray-100 transition"
+            >
+              Contact Me
+            </Link>
+          </div>
+        </div>
       </section>
-
-      <footer className="text-xs text-gray-400 mt-10 text-center">
-        Designed & Developed by Aime Serge UKOBIZABA · Built with Next.js, Tailwind, Redux
-      </footer>
-    </MainLayout>
+    </div>
   );
 }

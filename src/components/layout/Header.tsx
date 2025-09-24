@@ -1,18 +1,129 @@
-import Link from "next/link";
+'use client';
 
-export default function Header(){
+import Link from "next/link";
+import { useState } from "react";
+import { usePathname } from "next/navigation";
+import { Menu, X } from "lucide-react";
+
+export default function Header() {
+  const [isOpen, setIsOpen] = useState(false);
+  const toggleMenu = () => setIsOpen(!isOpen);
+
+  const pathname = usePathname();
+
+  const navItems = [
+    { href: "/", label: "Home" },
+    { href: "/projects", label: "Projects" },
+    { href: "/research", label: "Research" },
+    { href: "/blogs", label: "blogs" },
+    { href: "/contact", label: "Contact" },
+    { href: "/login", label: "Admin" },
+  ];
+
   return (
-    <header className="bg-white border-b shadow-sm">
-      <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-        <Link href="/" className="font-bold text-xl">Aime Serge UKOBIZABA— Portfolio</Link>
-        <div className="space-x-4 text-sm">
-          <Link href="/projects"className="hover:underline">Projects</Link>
-          <Link href="/research" className="hover:underline">Research</Link>
-          <Link href="/resume" className="hover:underline">Resume</Link>
-          <Link href="/contact" className="hover:underline">Contact</Link>
-          <Link href="/login" className="ml-4 px-3 py-1 border rounded text-sm">Admin</Link>
-        </div>
+    <header
+      className="bg-white/90 backdrop-blur-md border-b shadow-sm sticky top-0 z-50"
+      role="navigation"
+      aria-label="Main navigation"
+    >
+      <div className="container mx-auto px-6 py-4 flex items-center justify-between">
+        
+        {/* Branding / Logo */}
+        <Link
+          href="/"
+          className={`relative font-bold text-lg sm:text-xl tracking-tight transition-colors pb-1 ${
+            pathname === "/"
+              ? "text-blue-600"
+              : "text-gray-900 hover:text-blue-600"
+          }`}
+          aria-label="Go to homepage"
+          aria-current={pathname === "/" ? "page" : undefined}
+        >
+          Aime Serge UKOBIZABA
+          {/* Animated underline */}
+          <span
+            className={`absolute left-0 bottom-0 h-0.5 bg-blue-600 rounded transition-all duration-300 ease-in-out ${
+              pathname === "/" ? "w-full opacity-100" : "w-0 opacity-0"
+            }`}
+          />
+        </Link>
+
+        {/* Desktop Navigation */}
+        <nav
+          className="hidden md:flex items-center space-x-8 text-sm font-medium"
+          aria-label="Primary navigation"
+        >
+          {navItems.map((item) => {
+            const isActive = pathname === item.href;
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`relative transition-colors pb-1 ${
+                  isActive
+                    ? "text-blue-600 font-semibold"
+                    : "text-gray-700 hover:text-blue-600"
+                }`}
+                aria-current={isActive ? "page" : undefined}
+              >
+                {item.label}
+                {/* Animated underline */}
+                <span
+                  className={`absolute left-0 bottom-0 h-0.5 bg-blue-600 rounded transition-all duration-300 ease-in-out ${
+                    isActive ? "w-full opacity-100" : "w-0 opacity-0"
+                  }`}
+                />
+              </Link>
+            );
+          })}
+        </nav>
+
+        {/* Mobile Menu Button */}
+        <button
+          onClick={toggleMenu}
+          className="md:hidden text-gray-700 hover:text-blue-600 transition-colors"
+          aria-controls="mobile-menu"
+          aria-expanded={isOpen}
+          aria-label={isOpen ? "Close menu" : "Open menu"}
+        >
+          {isOpen ? <X size={26} aria-hidden="true" /> : <Menu size={26} aria-hidden="true" />}
+        </button>
       </div>
+
+      {/* Mobile Dropdown */}
+      {isOpen && (
+        <div
+          id="mobile-menu"
+          className="md:hidden bg-white border-t shadow-md px-6 py-4 space-y-3"
+          role="dialog"
+          aria-label="Mobile menu"
+        >
+          {navItems.map((item) => {
+            const isActive = pathname === item.href;
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={toggleMenu}
+                className={`relative block transition-colors py-1 ${
+                  isActive
+                    ? "text-blue-600 font-semibold"
+                    : "text-gray-700 hover:text-blue-600"
+                }`}
+                aria-current={isActive ? "page" : undefined}
+              >
+                {item.label}
+                {/* Animated underline */}
+                <span
+                  className={`absolute left-0 bottom-0 h-0.5 bg-blue-600 rounded transition-all duration-300 ease-in-out ${
+                    isActive ? "w-full opacity-100" : "w-0 opacity-0"
+                  }`}
+                />
+              </Link>
+            );
+          })}
+        </div>
+      )}
     </header>
   );
 }
