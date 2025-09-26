@@ -23,7 +23,7 @@ async function fetchLinkedIn(): Promise<SocialBlog[]> {
 
     if (!Array.isArray(data.elements)) return [];
 
-    return data.elements.map((el: any) => {
+    return data.elements.map((el:any) => {
       const message =
         el.specificContent?.["com.linkedin.ugc.ShareContent"]?.shareCommentary
           ?.text || "";

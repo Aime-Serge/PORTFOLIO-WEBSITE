@@ -3,15 +3,20 @@ import React from "react";
 import { useAppSelector } from "@/store/hooks";
 import { RootState } from "@/store";
 import { motion } from "framer-motion";
+import { easeOut } from "popmotion"; // ✅ added import
 
 export default function ProjectsPage() {
   const caseStudies = useAppSelector((s: RootState) => s.caseStudies.items);
   const projects = useAppSelector((s: RootState) => s.projects.items);
 
-  // Animation variants
+  // ✅ Fixed Animation variants
   const cardVariant = {
     hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: easeOut }, // typed easing
+    },
   };
 
   return (
@@ -23,7 +28,7 @@ export default function ProjectsPage() {
         </h1>
 
         {/* Featured Case Studies */}
-        <section id="case-studies" className="mb-24 relative">
+        <section id="case-studies" className="mb-24 relative">2
           <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-12 border-b-4 border-gradient-to-r from-blue-400 to-purple-500 pb-2">
             Featured Case Studies
           </h2>
@@ -114,3 +119,4 @@ export default function ProjectsPage() {
     </div>
   );
 }
+  
