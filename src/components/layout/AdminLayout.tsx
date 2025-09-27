@@ -41,7 +41,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
         <nav className="flex-1 p-4 space-y-2">
           {navLinks.map((link) => {
-            const isActive = pathname === link.href || pathname.startsWith(link.href + "/");
+            const isActive =
+              pathname === link.href || (pathname?.startsWith(link.href + "/") ?? false);
+
             return (
               <Link
                 key={link.href}
