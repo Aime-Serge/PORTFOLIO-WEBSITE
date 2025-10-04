@@ -142,7 +142,7 @@ export default function ContactPage() {
       {/* Divider */}
       <hr className="border-gray-300 my-12 max-w-4xl mx-auto" />
 
-      {/* Location Section (simplified Google Map) */}
+      {/* Location Section */}
       <section className="py-12 bg-gray-50">
         <h2 className="text-2xl font-semibold text-center mb-6">📍 My Location</h2>
         <div className="max-w-4xl mx-auto h-80 border rounded-lg overflow-hidden shadow-lg">
