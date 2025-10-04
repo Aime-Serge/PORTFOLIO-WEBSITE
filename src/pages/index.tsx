@@ -125,12 +125,23 @@ export default function HomePage() {
             "Tailwind CSS",
             "Redux",
             "Node.js",
+            "Express",
+            "Javacript",
+            "React Native",
+            "CSS3/CSS",
+            "HTML5",
+            "SQL and MangoDB databases",
+            "Java",
+            "C/C++",
+            "Visual Basic/VB.net",
+            "SWift",
             "Python",
             "Data Analysis",
             "AI & Machine Learning",
-            "Git/GitHub",
-            "REST APIs",
+            "Git/GitHub Technoligies",
+            "REST APIs and Graphql",
             "Problem Solving",
+            
           ].map((skill) => (
             <span
               key={skill}
