@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 
@@ -15,7 +16,7 @@ export default function Header() {
     { href: "/", label: "Home" },
     { href: "/projects", label: "Projects" },
     { href: "/research", label: "Research" },
-    { href: "/blogs", label: "blogs" },
+    { href: "/blogs", label: "Blogs" },
     { href: "/contact", label: "Contact" },
     { href: "/login", label: "" },
   ];
@@ -31,20 +32,16 @@ export default function Header() {
         {/* Branding / Logo */}
         <Link
           href="/"
-          className={`relative font-bold text-lg sm:text-xl tracking-tight transition-colors pb-1 ${
-            pathname === "/"
-              ? "text-blue-600"
-              : "text-gray-900 hover:text-blue-600"
-          }`}
+          className="inline-flex items-center transition-opacity hover:opacity-80"
           aria-label="Go to homepage"
           aria-current={pathname === "/" ? "page" : undefined}
         >
-          Aime Serge UKOBIZABA
-          {/* Animated underline */}
-          <span
-            className={`absolute left-0 bottom-0 h-0.5 bg-blue-600 rounded transition-all duration-300 ease-in-out ${
-              pathname === "/" ? "w-full opacity-100" : "w-0 opacity-0"
-            }`}
+          <Image
+            src="/logo.png"
+            alt="Aime Serge Tech Brand"
+            width={52}
+            height={52}
+            className="rounded-full"
           />
         </Link>
 
@@ -59,7 +56,7 @@ export default function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`relative transition-colors pb-1 ${
+                className={`group relative transition-colors pb-1 ${
                   isActive
                     ? "text-blue-600 font-semibold"
                     : "text-gray-700 hover:text-blue-600"
@@ -67,10 +64,12 @@ export default function Header() {
                 aria-current={isActive ? "page" : undefined}
               >
                 {item.label}
-                {/* Animated underline */}
+                {/* Animated underline (only for nav links) */}
                 <span
                   className={`absolute left-0 bottom-0 h-0.5 bg-blue-600 rounded transition-all duration-300 ease-in-out ${
-                    isActive ? "w-full opacity-100" : "w-0 opacity-0"
+                    isActive
+                      ? "w-full opacity-100"
+                      : "w-0 opacity-0 group-hover:w-full group-hover:opacity-100"
                   }`}
                 />
               </Link>
@@ -105,7 +104,7 @@ export default function Header() {
                 key={item.href}
                 href={item.href}
                 onClick={toggleMenu}
-                className={`relative block transition-colors py-1 ${
+                className={`group relative block transition-colors py-1 ${
                   isActive
                     ? "text-blue-600 font-semibold"
                     : "text-gray-700 hover:text-blue-600"
@@ -113,10 +112,12 @@ export default function Header() {
                 aria-current={isActive ? "page" : undefined}
               >
                 {item.label}
-                {/* Animated underline */}
+                {/* Animated underline (only for nav links) */}
                 <span
                   className={`absolute left-0 bottom-0 h-0.5 bg-blue-600 rounded transition-all duration-300 ease-in-out ${
-                    isActive ? "w-full opacity-100" : "w-0 opacity-0"
+                    isActive
+                      ? "w-full opacity-100"
+                      : "w-0 opacity-0 group-hover:w-full group-hover:opacity-100"
                   }`}
                 />
               </Link>
