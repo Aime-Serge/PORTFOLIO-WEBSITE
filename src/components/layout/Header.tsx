@@ -18,7 +18,7 @@ export default function Header() {
     { href: "/research", label: "Research" },
     { href: "/blogs", label: "Blogs" },
     { href: "/contact", label: "Contact" },
-    { href: "/login", label: "" },
+    { href: "/login", label: "login" },
   ];
 
   return (
