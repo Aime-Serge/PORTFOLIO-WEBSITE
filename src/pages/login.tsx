@@ -1,14 +1,16 @@
 "use client";
 
 import { useState } from "react";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, Loader2 } from "lucide-react";
 
 export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
   const [strength, setStrength] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
+  // 🔹 Check password strength
   function checkStrength(pw: string) {
     if (!pw) return "";
     if (pw.length < 6) return "Weak";
@@ -18,43 +20,66 @@ export default function LoginPage() {
     return "Medium";
   }
 
+  // 🔹 Handle typing
   function handlePasswordChange(value: string) {
     setPassword(value);
     setStrength(checkStrength(value));
   }
 
+  // 🔹 Handle form submission
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError("");
-    const res = await fetch("/api/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ password }),
-    });
-    if (res.ok) {
-      window.location.href = "/admin";
-    } else {
+    setLoading(true);
+
+    try {
+      const res = await fetch("/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include", // ✅ crucial for cookie auth
+        body: JSON.stringify({ password }),
+      });
+
       const data = await res.json();
-      setError(data.error || "Login failed");
+
+      if (res.ok) {
+        // Redirect or update UI
+        window.location.href = "/admin";
+      } else {
+        setError(data.error || "Login failed");
+      }
+    } catch (err) {
+      console.error(err);
+      setError("Network error. Please try again.");
+    } finally {
+      setLoading(false);
     }
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
       <form
         onSubmit={handleSubmit}
-        className="bg-white p-6 rounded shadow w-80"
+        className="bg-white p-6 rounded-xl shadow-md w-full max-w-sm"
       >
-        <h1 className="text-lg font-bold mb-4 text-center">Admin Login</h1>
+        <h1 className="text-xl font-semibold mb-4 text-center text-gray-800">
+          Admin Login
+        </h1>
 
-        {/* Password Input with Toggle */}
-        <div className="relative mb-2">
+        {/* Password Field */}
+        <div className="relative mb-3">
+          <label htmlFor="password" className="sr-only">
+            Password
+          </label>
           <input
+            id="password"
             type={showPassword ? "text" : "password"}
             value={password}
             onChange={(e) => handlePasswordChange(e.target.value)}
-            className="w-full p-2 pr-10 border rounded"
-            placeholder="Password"
+            className="w-full p-2 pr-10 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Enter admin password"
+            autoComplete="current-password"
+            required
           />
           <button
             type="button"
@@ -66,7 +91,7 @@ export default function LoginPage() {
           </button>
         </div>
 
-        {/* Password Strength Feedback */}
+        {/* Password Strength Indicator */}
         {strength && (
           <p
             className={`text-sm mb-2 ${
@@ -81,20 +106,22 @@ export default function LoginPage() {
           </p>
         )}
 
-        {/* Error Feedback */}
+        {/* Error Message */}
         {error && (
           <p className="text-red-500 text-sm mb-2 text-center">{error}</p>
         )}
 
-        {/* Submit */}
-        <a>
+        {/* Submit Button */}
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700 transition-colors"
+          disabled={loading}
+          className={`w-full flex justify-center items-center gap-2 bg-blue-600 text-white p-2 rounded hover:bg-blue-700 transition-colors ${
+            loading ? "opacity-75 cursor-not-allowed" : ""
+          }`}
         >
-          Login
+          {loading && <Loader2 size={18} className="animate-spin" />}
+          {loading ? "Logging in..." : "Login"}
         </button>
-        </a>
       </form>
     </div>
   );
